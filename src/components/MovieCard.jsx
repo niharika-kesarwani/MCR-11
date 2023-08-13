@@ -1,4 +1,7 @@
 /* eslint-disable react/prop-types */
+import { useNavigate } from "react-router-dom";
+import { useMovies } from "../main";
+
 export const MovieCard = ({ movie }) => {
   const {
     id,
@@ -12,11 +15,14 @@ export const MovieCard = ({ movie }) => {
     summary,
     imageURL,
   } = movie;
-  const buttonClassName =
-    "rounded-md border-2 bg-black px-2 py-1 text-white opacity-70 hover:cursor-pointer hover:opacity-60";
+  const navigate = useNavigate();
+  const { buttonClassName } = useMovies();
 
   return (
-    <div className="flex h-[35rem] w-72 flex-col overflow-hidden rounded-lg border-2 border-black">
+    <div
+      className="flex h-[35rem] w-72 flex-col overflow-hidden rounded-lg border-2 border-black hover:cursor-pointer"
+      onClick={() => navigate(`/movie/${id}`)}
+    >
       <div className="h-2/3">
         <img src={imageURL} className="h-full w-full object-cover" />
       </div>

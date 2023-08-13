@@ -46,6 +46,9 @@ export const MoviesProvider = ({ children }) => {
           ({ rating }) => rating == ratingFilter
         );
 
+  const buttonClassName =
+    "rounded-md border-2 bg-black px-2 py-1 text-white opacity-70 hover:cursor-pointer hover:opacity-60";
+
   useEffect(() => {
     const localStorageMovies = localStorage.getItem("movies");
     if (localStorageMovies) {
@@ -65,6 +68,7 @@ export const MoviesProvider = ({ children }) => {
         allReleaseYears,
         allRatings,
         displayMovies: ratingFilteredMovies,
+        buttonClassName,
       }}
     >
       {children}

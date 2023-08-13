@@ -11,7 +11,12 @@ export const Header = () => {
 
   return (
     <div className="flex items-center justify-between bg-black p-5 text-white opacity-70">
-      <div className="text-xl font-bold">IMDB</div>
+      <div
+        className="text-xl font-bold hover:cursor-pointer"
+        onClick={() => navigate("/")}
+      >
+        IMDB
+      </div>
       <input
         type="text"
         placeholder="Search movies by title, cast and director..."
