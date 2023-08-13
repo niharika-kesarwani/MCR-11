@@ -13,7 +13,7 @@ export const Starred = () => {
       <div className="text-2xl font-bold">Starred Movies</div>
       <div className="flex flex-wrap gap-24 p-5">
         {allStarredMovies?.map((movie) => (
-          <MovieCard movie={movie} key={movie.id} />
+          <MovieCard movie={movie} key={movie.id} starPage />
         ))}
       </div>
     </div>

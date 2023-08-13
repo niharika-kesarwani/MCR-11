@@ -13,7 +13,7 @@ export const Watchlist = () => {
       <div className="text-2xl font-bold">Watchlisted Movies</div>
       <div className="flex flex-wrap gap-24 p-5">
         {allWatchlistedMovies?.map((movie) => (
-          <MovieCard movie={movie} key={movie.id} />
+          <MovieCard movie={movie} key={movie.id} watchlistPage />
         ))}
       </div>
     </div>

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useMovies } from "../main";
 import { moviesConstants } from "../constants/movies-constants";
 
-export const MovieCard = ({ movie }) => {
+export const MovieCard = ({ movie, homePage, starPage, watchlistPage }) => {
   const {
     id,
     title,
@@ -25,7 +25,7 @@ export const MovieCard = ({ movie }) => {
 
   return (
     <div
-      className="flex h-[35rem] w-72 flex-col overflow-hidden rounded-lg border-2 border-black hover:cursor-pointer"
+      className="flex h-[35rem] w-80 flex-col overflow-hidden rounded-lg border-2 border-black hover:cursor-pointer"
       onClick={() => navigate(`/movie/${id}`)}
     >
       <div className="h-2/3">
@@ -39,19 +39,35 @@ export const MovieCard = ({ movie }) => {
             className={buttonClassName}
             onClick={(e) => {
               e.stopPropagation();
-              setMovies({ type: HANDLE_STAR_MOVIE, payload: movie });
+              homePage
+                ? !star &&
+                  setMovies({ type: HANDLE_STAR_MOVIE, payload: movie })
+                : starPage
+                ? setMovies({ type: HANDLE_STAR_MOVIE, payload: movie })
+                : !star &&
+                  setMovies({ type: HANDLE_STAR_MOVIE, payload: movie });
             }}
           >
-            {star ? "Starred" : "Star"}
+            {star ? (homePage || watchlistPage ? "Starred" : "Unstar") : "Star"}
           </div>
           <div
             className={buttonClassName}
             onClick={(e) => {
               e.stopPropagation();
-              setMovies({ type: HANDLE_WATCHLIST_MOVIE, payload: movie });
+              homePage
+                ? !watchlist &&
+                  setMovies({ type: HANDLE_WATCHLIST_MOVIE, payload: movie })
+                : watchlistPage
+                ? setMovies({ type: HANDLE_WATCHLIST_MOVIE, payload: movie })
+                : !watchlist &&
+                  setMovies({ type: HANDLE_WATCHLIST_MOVIE, payload: movie });
             }}
           >
-            {watchlist ? "Added to Watchlist" : "Add to Watchlist"}
+            {watchlist
+              ? homePage || starPage
+                ? "Added to Watchlist"
+                : "Remove from Watchlist"
+              : "Add to Watchlist"}
           </div>
         </div>
       </div>

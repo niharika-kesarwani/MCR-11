@@ -11,7 +11,7 @@ export const Movies = () => {
   return (
     <div className="flex flex-wrap gap-24 p-5">
       {displayMovies?.map((movie) => (
-        <MovieCard movie={movie} key={movie.id} />
+        <MovieCard movie={movie} key={movie.id} homePage />
       ))}
     </div>
   );
