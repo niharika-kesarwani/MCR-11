@@ -4,6 +4,7 @@ import { moviesConstants } from "../constants/movies-constants";
 
 const {
   SET_MOVIES,
+  SET_SEARCH_FILTER,
   SET_GENRE_FILTER,
   SET_RELEASE_YEAR_FILTER,
   SET_RATING_FILTER,
@@ -15,6 +16,8 @@ export const moviesReducer = (state, { type, payload }) => {
   switch (type) {
     case SET_MOVIES:
       return { ...state, movies: payload };
+    case SET_SEARCH_FILTER:
+      return { ...state, searchFilter: payload };
     case SET_GENRE_FILTER:
       return { ...state, genreFilter: payload };
     case SET_RELEASE_YEAR_FILTER:
@@ -34,6 +37,7 @@ export const moviesReducer = (state, { type, payload }) => {
 
 export const initialMovies = {
   movies: movies,
+  searchFilter: "",
   genreFilter: "All Genre",
   releaseYearFilter: "Release Year",
   ratingFilter: "Rating",

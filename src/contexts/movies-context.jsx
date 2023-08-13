@@ -11,7 +11,7 @@ export const MoviesProvider = ({ children }) => {
   const [movies, setMovies] = useReducer(moviesReducer, initialMovies);
 
   const { SET_MOVIES } = moviesConstants;
-  const { genreFilter, releaseYearFilter, ratingFilter } = movies;
+  const { searchFilter, genreFilter, releaseYearFilter, ratingFilter } = movies;
   const allMovies = movies.movies;
 
   const allGenres = allMovies.reduce(
@@ -29,10 +29,22 @@ export const MoviesProvider = ({ children }) => {
 
   const allRatings = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
+  const searchFilteredMovies =
+    searchFilter === ""
+      ? allMovies
+      : allMovies?.filter(
+          ({ title, cast, director }) =>
+            title.toLowerCase().includes(searchFilter.toLowerCase()) ||
+            director.toLowerCase().includes(searchFilter.toLowerCase()) ||
+            cast.some((item) =>
+              item.toLowerCase().includes(searchFilter.toLowerCase())
+            )
+        );
+
   const genreFilteredMovies =
     genreFilter === "All Genre"
-      ? allMovies
-      : allMovies.filter(({ genre }) => genre.includes(genreFilter));
+      ? searchFilteredMovies
+      : searchFilteredMovies.filter(({ genre }) => genre.includes(genreFilter));
 
   const releaseYearFilteredMovies =
     releaseYearFilter === "Release Year"
