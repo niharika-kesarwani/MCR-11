@@ -4,7 +4,8 @@ import { useMovies } from "../main";
 import { v4 as uuid } from "uuid";
 
 export const AddMovieModal = () => {
-  const { setMovies, buttonClassName } = useMovies();
+  const { setMovies, buttonClassName, allReleaseYears, allRatings } =
+    useMovies();
   const inputClassName = "border-2 border-black p-2 w-full";
   const { SET_SHOW_ADD_MOVIE_MODAL, ADD_MOVIE } = moviesConstants;
   const [formDetails, setFormDetails] = useState({
@@ -67,27 +68,35 @@ export const AddMovieModal = () => {
         <div className="flex justify-between gap-3">
           <div className="flex w-full flex-col gap-3">
             <label>Year</label>
-            <input
-              type="number"
+            <select
               name="year"
-              onChange={(e) => handleFormChange(e)}
               className={inputClassName}
-              min="1990"
-              max="2003"
+              onChange={(e) => handleFormChange(e)}
+              defaultValue={1990}
               required
-            />
+            >
+              {allReleaseYears?.map((item, index) => (
+                <option value={item} key={index}>
+                  {item}
+                </option>
+              ))}
+            </select>
           </div>
           <div className="flex w-full flex-col gap-3">
             <label>Rating</label>
-            <input
-              type="number"
+            <select
               name="rating"
-              onChange={(e) => handleFormChange(e)}
               className={inputClassName}
-              min="1"
-              max="10"
+              onChange={(e) => handleFormChange(e)}
+              defaultValue={1}
               required
-            />
+            >
+              {allRatings?.map((item, index) => (
+                <option value={item} key={index}>
+                  {item}
+                </option>
+              ))}
+            </select>
           </div>
         </div>
 
