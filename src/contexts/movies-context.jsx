@@ -29,6 +29,10 @@ export const MoviesProvider = ({ children }) => {
 
   const allRatings = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
+  const allStarredMovies = allMovies?.filter(({ star }) => star);
+
+  const allWatchlistedMovies = allMovies?.filter(({ watchlist }) => watchlist);
+
   const searchFilteredMovies =
     searchFilter === ""
       ? allMovies
@@ -81,6 +85,8 @@ export const MoviesProvider = ({ children }) => {
         allRatings,
         displayMovies: ratingFilteredMovies,
         buttonClassName,
+        allStarredMovies,
+        allWatchlistedMovies,
       }}
     >
       {children}

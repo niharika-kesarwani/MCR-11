@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useNavigate } from "react-router-dom";
 import { useMovies } from "../main";
+import { moviesConstants } from "../constants/movies-constants";
 
 export const MovieCard = ({ movie }) => {
   const {
@@ -14,9 +15,13 @@ export const MovieCard = ({ movie }) => {
     cast,
     summary,
     imageURL,
+    star,
+    watchlist,
   } = movie;
   const navigate = useNavigate();
-  const { buttonClassName } = useMovies();
+  const { setMovies, buttonClassName } = useMovies();
+
+  const { HANDLE_STAR_MOVIE, HANDLE_WATCHLIST_MOVIE } = moviesConstants;
 
   return (
     <div
@@ -30,8 +35,24 @@ export const MovieCard = ({ movie }) => {
         <div className="text-lg font-bold">{title}</div>
         <div className="line-clamp-4">{summary}</div>
         <div className="flex gap-5">
-          <div className={buttonClassName}>Star</div>
-          <div className={buttonClassName}>Add to Watchlist</div>
+          <div
+            className={buttonClassName}
+            onClick={(e) => {
+              e.stopPropagation();
+              setMovies({ type: HANDLE_STAR_MOVIE, payload: movie });
+            }}
+          >
+            {star ? "Starred" : "Star"}
+          </div>
+          <div
+            className={buttonClassName}
+            onClick={(e) => {
+              e.stopPropagation();
+              setMovies({ type: HANDLE_WATCHLIST_MOVIE, payload: movie });
+            }}
+          >
+            {watchlist ? "Added to Watchlist" : "Add to Watchlist"}
+          </div>
         </div>
       </div>
     </div>
