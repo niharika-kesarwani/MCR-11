@@ -1,3 +1,4 @@
+/* eslint-disable no-case-declarations */
 import { movies } from "../data/movies-data";
 import { moviesConstants } from "../constants/movies-constants";
 
@@ -7,6 +8,7 @@ const {
   SET_RELEASE_YEAR_FILTER,
   SET_RATING_FILTER,
   SET_SHOW_ADD_MOVIE_MODAL,
+  ADD_MOVIE,
 } = moviesConstants;
 
 export const moviesReducer = (state, { type, payload }) => {
@@ -21,6 +23,10 @@ export const moviesReducer = (state, { type, payload }) => {
       return { ...state, ratingFilter: payload };
     case SET_SHOW_ADD_MOVIE_MODAL:
       return { ...state, showAddMovieModal: payload };
+    case ADD_MOVIE:
+      const updatedMovies = [...state.movies, payload];
+      localStorage.setItem("movies", JSON.stringify(updatedMovies));
+      return { ...state, movies: updatedMovies };
     default:
       return state;
   }
