@@ -1,3 +1,11 @@
+import { Filters } from "../components/Filters";
+import { Movies } from "../components/Movies";
+
 export const Home = () => {
-  return <div>Home</div>;
+  return (
+    <div>
+      <Filters />
+      <Movies />
+    </div>
+  );
 };

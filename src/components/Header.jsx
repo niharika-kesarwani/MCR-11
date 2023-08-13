@@ -15,15 +15,16 @@ export const Header = () => {
       <input
         type="text"
         placeholder="Search movies by title, cast and director..."
-        className="w-96 rounded-md p-2"
+        className="w-96 rounded-md p-2 text-black"
       />
       <div className="flex gap-5">
-        {headerTabs.map(({ name, route }) => {
+        {headerTabs.map(({ name, route }, index) => {
           const onSameRoute = location.pathname === route;
           return (
             <div
               className={`hover:cursor-pointer ${onSameRoute && "font-bold"}`}
               onClick={() => navigate(route)}
+              key={index}
             >
               {name}
             </div>
