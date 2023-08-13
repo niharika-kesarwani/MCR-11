@@ -11,8 +11,10 @@ export const MoviesProvider = ({ children }) => {
   const [movies, setMovies] = useReducer(moviesReducer, initialMovies);
 
   const { SET_MOVIES } = moviesConstants;
+  const { genreFilter, releaseYearFilter, ratingFilter } = movies;
+  const allMovies = movies.movies;
 
-  const allGenres = movies.movies.reduce(
+  const allGenres = allMovies.reduce(
     (final, { genre }) => [
       ...final,
       ...genre.filter((item) => !final.includes(item)),
@@ -27,7 +29,22 @@ export const MoviesProvider = ({ children }) => {
 
   const allRatings = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
-  const displayMovies = movies.movies;
+  const genreFilteredMovies =
+    genreFilter === "All Genre"
+      ? allMovies
+      : allMovies.filter(({ genre }) => genre.includes(genreFilter));
+
+  const releaseYearFilteredMovies =
+    releaseYearFilter === "Release Year"
+      ? genreFilteredMovies
+      : genreFilteredMovies?.filter(({ year }) => year == releaseYearFilter);
+
+  const ratingFilteredMovies =
+    ratingFilter === "Rating"
+      ? releaseYearFilteredMovies
+      : releaseYearFilteredMovies?.filter(
+          ({ rating }) => rating == ratingFilter
+        );
 
   useEffect(() => {
     const localStorageMovies = localStorage.getItem("movies");
@@ -47,7 +64,7 @@ export const MoviesProvider = ({ children }) => {
         allGenres,
         allReleaseYears,
         allRatings,
-        displayMovies,
+        displayMovies: ratingFilteredMovies,
       }}
     >
       {children}
